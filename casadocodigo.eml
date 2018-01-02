@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component LANGUAGE_LEVEL="JDK_1_8" jdk="IntelliJ IDEA IU-173.4127.27" jdk_type="IDEA JDK">
+	<output-test url="file://$MODULE_DIR$/target/test-classes"/>
+	<contentEntry url="file://$MODULE_DIR$">
+		<excludeFolder url="file://$MODULE_DIR$/target"/>
+	</contentEntry>
+	<lib name="Maven: org.jboss.spec.javax.faces:jboss-jsf-api_2.1_spec:2.0.9.Final" scope="PROVIDED"/>
+	<lib name="Maven: javax.enterprise:cdi-api:1.0-SP4" scope="PROVIDED"/>
+	<lib name="Maven: org.jboss.spec.javax.interceptor:jboss-interceptors-api_1.1_spec:1.0.1.Final" scope="PROVIDED"/>
+	<lib name="Maven: javax.inject:javax.inject:1" scope="PROVIDED"/>
+	<lib name="Maven: javax.annotation:jsr250-api:1.0" scope="PROVIDED"/>
+	<levels>
+		<level name="Maven: org.jboss.spec.javax.faces:jboss-jsf-api_2.1_spec:2.0.9.Final" value="project"/>
+		<level name="Maven: javax.enterprise:cdi-api:1.0-SP4" value="project"/>
+		<level name="Maven: org.jboss.spec.javax.interceptor:jboss-interceptors-api_1.1_spec:1.0.1.Final" value="project"/>
+		<level name="Maven: javax.inject:javax.inject:1" value="project"/>
+		<level name="Maven: javax.annotation:jsr250-api:1.0" value="project"/>
+	</levels>
+</component>

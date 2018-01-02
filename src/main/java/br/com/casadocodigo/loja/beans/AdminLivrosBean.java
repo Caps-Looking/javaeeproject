@@ -1,85 +1,70 @@
 package br.com.casadocodigo.loja.beans;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.enterprise.context.RequestScoped;
-import javax.inject.Inject;
-import javax.inject.Named;
-import javax.transaction.Transactional;
-
 import br.com.casadocodigo.loja.daos.AutorDao;
 import br.com.casadocodigo.loja.daos.LivroDao;
+import br.com.casadocodigo.loja.infra.FileSaver;
 import br.com.casadocodigo.loja.models.Autor;
 import br.com.casadocodigo.loja.models.Livro;
 
-@Named
-@RequestScoped
+import javax.enterprise.inject.Model;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+import javax.inject.Inject;
+import javax.servlet.http.Part;
+import javax.transaction.Transactional;
+
+import java.io.IOException;
+import java.util.List;
+
+@Model
 public class AdminLivrosBean {
-	
-	/****************************
-	 * Injeções de dependências *
-	 ****************************/
+
 	@Inject
 	private LivroDao livroDao;
-	
+
 	@Inject
 	private AutorDao autorDao;
-	
-	/*************
-	 * Atributos *
-	 *************/	
+
+	@Inject
+	private FacesContext context;
+
 	private Livro livro = new Livro();
 	
-	private List<Integer> autoresId = new ArrayList<>();	
+	private Part capaLivro;
 
-	/******************
-	 * CRUD methods	 * 
-	 ******************/
-	
-	//Salvar
 	@Transactional
-	public void salvar() {
-		autoresId.stream().forEach(a -> livro.getAutores().add(new Autor(a)));
+	public String salvar() throws IOException {
+		FileSaver fileSaver = new FileSaver();		
+		livro.setCapaPath(fileSaver.writeArchive(capaLivro, "livros"));
+		
 		livroDao.salvar(livro);
-		System.out.println("Livro cadastrado: " + livro);
-		this.livro = new Livro();
-		this.autoresId = new ArrayList<>();
-	}
-	
-	/*********************
-	 * Getters e Setters * 
-	 *********************/	
 
-	/**
-	 * Getters de listas
-	 */
-	//Get de autores
+		context.getExternalContext().getFlash().setKeepMessages(true);
+		context.addMessage(null, new FacesMessage("Livro cadastrado com sucesso!"));
+
+		return "/livros/lista?faces-redirect=true";
+	}
+
+	
+
 	public List<Autor> getAutores() {
 		return autorDao.listar();
-	}	
-	
-	/**
-	 * Outros Getters e Setters
-	 */
-	//Get de autoresId
-	public List<Integer> getAutoresId() {
-		return autoresId;
 	}
 
-	//Set de autoresId
-	public void setAutoresId(List<Integer> autoresId) {
-		this.autoresId = autoresId;
-	}
-
-	//Get de livro
 	public Livro getLivro() {
 		return livro;
 	}
 
-	//Set de livro
 	public void setLivro(Livro livro) {
 		this.livro = livro;
 	}
 	
+	public Part getCapaLivro() {
+		return capaLivro;
+	}
+
+		public void setCapaLivro(Part capaLivro) {
+		this.capaLivro = capaLivro;
+	}
+
 }
