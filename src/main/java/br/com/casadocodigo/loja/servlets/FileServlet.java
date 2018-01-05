@@ -18,6 +18,8 @@ import br.com.casadocodigo.loja.infra.FileSaver;
 @WebServlet("/file/*")
 public class FileServlet extends HttpServlet {
 
+	private static final long serialVersionUID = 1L;
+
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		String path = req.getRequestURI().split("/file")[1];
